@@ -7,7 +7,7 @@
 URL=$1
 
 # Process input from stdin
-tr '\t' ' ' | tr -s ' ' | sort | uniq -c | awk -v url="$URL" '{
+tr -s '\t ' ' ' | sort | uniq -c | awk -v url="$URL" '{
     # build the term sequence with the second field
     term_sequence = $2;
     
