@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
 const readline = require('readline');
-const { JSDOM } = require('jsdom');
-const { URL } = require('url');
+const {JSDOM} = require('jsdom');
+const {URL} = require('url');
 
 // Example usage:
 // console.log(process.argv[0])
@@ -11,7 +11,7 @@ const baseURL = new URL(inputURL);
 
 const rl = readline.createInterface({
   input: process.stdin,
-  output: process.stdout
+  output: process.stdout,
 });
 
 // TODO some code
@@ -28,33 +28,24 @@ rl.on('line', (line) => {
   const dom = new JSDOM(line);
   const document = dom.window.document;
   const links = document.querySelectorAll('a');
-  links.forEach(link => {
-
+  links.forEach((link) => {
     let url;
     try {
-       try {
       url = new URL(link.href).href;
     } catch (e) {
       url = new URL(link.href, baseURL).href;
-    } 
-    } catch (e) {
-      console.error("linkhref", link.href, "baseURL", baseURL, "error", e);
-      return;
     }
-   
-    console.error("the url", url.toString());
+    // console.error('the url', url.toString());
 
     // const url = new URL(link.href, baseURL);
     if (!urls.has(url.toString())) {
-       process.stdout.write(url.toString() + '\n');
-    urls.add(url.toString());
-    console.error(url.toString());
+      process.stdout.write(url.toString() + '\n');
+      urls.add(url.toString());
+      // console.error(url.toString());
     }
-   
   });
   // write urls to stdout
   // process.stdout.write(Array.from(urls).join('\n') + '\n');
-
 });
 
 rl.on('close', () => {
