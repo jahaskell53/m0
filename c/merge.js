@@ -75,7 +75,7 @@ const mergeIndices = () => {
       });
     }
   });
-  console.error("globalIndex: ", globalIndex);
+  // console.error("globalIndex: ", globalIndex);
   Object.keys(globalIndex).forEach(term => {
     const urlsAndCounts = Object.entries(globalIndex[term]).sort(([urlA, countA], [urlB, countB]) => {
     if (countB !== countA) {

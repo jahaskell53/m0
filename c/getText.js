@@ -22,6 +22,6 @@ rl.on('line', (line) => {
 rl.on('close', () => {
   // TODO Add some code
   const text = convert(html);
-  console.error(text);
+  // console.error(text);
   process.stdout.write(text + '\n');
 });
