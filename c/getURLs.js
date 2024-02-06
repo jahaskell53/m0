@@ -15,20 +15,51 @@ const rl = readline.createInterface({
 });
 
 // TODO some code
-let urls = "";
+let urls = new Set();
 rl.on('line', (line) => {
   // TODO some code
-    const regex = /href="([^"]*)"/g;
-  let match;
-   while ((match = regex.exec(line)) !== null) {
-    const url = new URL(match[1], baseURL);
-    // rl.write(url.toString() + "\n");
-    urls += url.toString() + "\n";
-  }
+  //   const regex = /href="([^"]*)"/g;
+  // let match;
+  //  while ((match = regex.exec(line)) !== null) {
+  //   const url = new URL(match[1], baseURL);
+  //   // rl.write(url.toString() + "\n");
+  //   urls += url.toString() + "\n";
+  // }
+  const dom = new JSDOM(line);
+  const document = dom.window.document;
+  const links = document.querySelectorAll('a');
+  links.forEach(link => {
+
+    let url;
+    try {
+       try {
+      url = new URL(link.href).href;
+    } catch (e) {
+      url = new URL(link.href, baseURL).href;
+    } 
+    } catch (e) {
+      console.error("linkhref", link.href, "baseURL", baseURL, "error", e);
+      return;
+    }
+   
+    console.error("the url", url.toString());
+
+    // const url = new URL(link.href, baseURL);
+    if (!urls.has(url.toString())) {
+       process.stdout.write(url.toString() + '\n');
+    urls.add(url.toString());
+    console.error(url.toString());
+    }
+   
+  });
+  // write urls to stdout
+  // process.stdout.write(Array.from(urls).join('\n') + '\n');
+
 });
 
 rl.on('close', () => {
   // TODO some code
-  process.stdout.write(urls);
+  // console.error("urls", urls);
+  // process.stdout.write(Array.from(urls).join('\n') + '\n');
   // dont need to exit process, and write on end, that seemed to be the issue
 });

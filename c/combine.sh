@@ -2,7 +2,7 @@
 #
 # Combine terms to create  n-grams (for n=1,2,3) and then count and sort them
 
-awk '{
+tr '\t' ' ' | tr -s ' '| paste -d ' ' - - - < <(tr '\n' ' ') | awk '{
     for(i=1; i<=NF; i++) {
         # 1-gram
         print $i
@@ -15,4 +15,4 @@ awk '{
             print $i, $(i+1), $(i+2)
         }
     }
-}' | sort | uniq -c | sort -nr
+}'| sort 

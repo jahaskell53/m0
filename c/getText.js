@@ -23,8 +23,6 @@ rl.on('line', (line) => {
 rl.on('close', () => {
   // TODO Add some code
   const text = convert(html);
-  const tokenizer = new natural.WordTokenizer();
-  const tokens = tokenizer.tokenize(text);
-
-  process.stdout.write(tokens.join('\n'));
+  console.error(text);
+  process.stdout.write(text + '\n');
 });

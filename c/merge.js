@@ -18,7 +18,7 @@ const incomingIndex = {};
 // TODO some code here
 rl.on('line', (line) => {
   // TODO some code here
-   const [count, term, url] = line.split('|').map(part => part.trim());
+   const [term, count, url] = line.split('|').map(part => part.trim());
   //  console.log("term: ", term, "count: ", count, "url: ", url);
   if (!incomingIndex[term]) {
     incomingIndex[term] = {};
@@ -65,7 +65,6 @@ const mergeIndices = () => {
    Object.keys(incomingIndex).forEach(term => {
     if (!globalIndex[term]) {
       globalIndex[term] = incomingIndex[term];
-      // console.log("incomingIndex[term]: ", incomingIndex[term])
     } else {
       Object.keys(incomingIndex[term]).forEach(url => {
         if (!globalIndex[term][url]) {
@@ -78,11 +77,16 @@ const mergeIndices = () => {
   });
   console.error("globalIndex: ", globalIndex);
   Object.keys(globalIndex).forEach(term => {
-    const urlsAndCounts = Object.entries(globalIndex[term]).flatMap(([url, count]) => {
+    const urlsAndCounts = Object.entries(globalIndex[term]).sort(([urlA, countA], [urlB, countB]) => {
+    if (countB !== countA) {
+      return countB - countA; 
+    } else {
+      return urlA.localeCompare(urlB);
+    }
+  }).flatMap(([url, count]) => {
       // console.log("url: ", url, "count: ", count);
       return [url, count];
     }).join(' '); 
-    // write the term and count to log:
     process.stdout.write(`${term} | ${urlsAndCounts}\n`);
   });
 }
