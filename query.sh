@@ -5,5 +5,5 @@
 # index metadata
 
 # echo "$@" | cat
-
-grep -i "$@" d/global-index.txt
+file="d/global-index.txt" 
+grep -i $(echo $1 | c/stem.js) "$file"
