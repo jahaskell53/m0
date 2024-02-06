@@ -7,4 +7,4 @@ cat "$1" |
   c/combine.sh |
   c/invert.sh "$2" |
   c/merge.js d/global-index.txt |
-  sort -o d/global-index.txt
+  sort -t '|' -k1,1 -k2,2 -o d/global-index.txt

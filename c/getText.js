@@ -4,7 +4,6 @@
 
 const { convert } = require('html-to-text');
 const readline = require('readline');
-const natural = require('natural');
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -17,7 +16,7 @@ let html = '';
 rl.on('line', (line) => {
   // TODO Add some code
   // process.stdout.write(line);
-  html += line;
+  html += line + "\n";
 });
 
 rl.on('close', () => {

@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "eslint": "^8.56.0",
     "html-to-text": "^9.0.5",
     "jsdom": "^24.0.0",
     "natural": "^6.10.4",
